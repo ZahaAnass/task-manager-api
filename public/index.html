@@ -4,38 +4,71 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- favicon -->
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-    <!-- font awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- normalize css -->
     <link rel="stylesheet" href="./normalize.css" />
-    <!-- main css -->
     <link rel="stylesheet" href="./main.css" />
-    <title>Task Manager</title>
+    <title>Task Manager </title>
   </head>
   <body>
-    <form class="task-form">
-      <h4>task manager</h4>
-      <div class="form-control">
-        <input
-          type="text"
-          name="name"
-          class="task-input"
-          placeholder="e.g. wash dishes"
-        />
-        <button type="submit" class="btn submit-btn">submit</button>
+    <nav class="navbar">
+      <div class="nav-center">
+        <div class="nav-header">
+          <h3 class="logo">TaskMaster</h3>
+          <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
       </div>
-      <div class="form-alert"></div>
-    </form>
-    <section class="tasks-container">
-      <p class="loading-text">Loading...</p>
-      <div class="tasks"></div>
-    </section>
-    <!-- axios -->
+    </nav>
+
+    <main class="page">
+      <section class="task-manager">
+        <form class="task-form">
+          <h4>Add New Task</h4>
+          <div class="form-control">
+            <input
+              type="text"
+              name="name"
+              class="task-input"
+              placeholder="e.g. Complete project presentation"
+              required
+            />
+            <button type="submit" class="btn submit-btn">
+              <i class="fas fa-plus"></i> Add Task
+            </button>
+          </div>
+          <div class="form-alert"></div>
+        </form>
+
+        <div class="tasks-container">
+          <div class="tasks-header">
+            <h4>Your Tasks</h4>
+            <div class="task-filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="active">Active</button>
+              <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+          </div>
+          
+          <div class="tasks">
+            <p class="loading-text">Loading tasks...</p>
+            <p class="no-tasks">No tasks to display. Add a task to get started!</p>
+          </div>
+          
+          <div class="tasks-footer">
+            <span class="task-count">0 items left</span>
+            <button class="clear-completed">Clear Completed</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast"></div>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
