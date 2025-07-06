@@ -2,6 +2,8 @@
 
 A full-stack task management application built with Node.js, Express, MongoDB, and modern frontend technologies. This application allows users to create, read, update, and delete tasks with a clean, responsive interface featuring dark mode support.
 
+> 🌐 **Live Demo:** [https://task-manager-api-node.up.railway.app/](https://task-manager-api-node.up.railway.app/)
+
 ## 🚀 Features
 
 - **Full CRUD Operations**: Create, Read, Update, and Delete tasks
