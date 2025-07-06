@@ -1,47 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- favicon -->
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-    <!-- normalize -->
-    <link rel="stylesheet" href="./normalize.css" />
-    <!-- main  -->
-    <link rel="stylesheet" href="./main.css" />
-
-    <title>Edit Task</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                500: '#3b82f6',
+                600: '#2563eb',
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <title>Edit Task | Task Manager</title>
+    <style>
+      body {
+        transition: background-color 0.3s, color 0.3s;
+      }
+    </style>
   </head>
-  <body>
-    <div class="container">
-      <form class="single-task-form">
-        <h4>Edit Task</h4>
-        <div class="form-control">
-          <label>Task ID</label>
-          <p class="task-edit-id"></p>
+  <body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-white dark:bg-gray-800 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+          <a href="index.html" class="text-primary-600 dark:text-primary-400 hover:opacity-80 transition-opacity flex items-center">
+            <i class="fas fa-arrow-left mr-2"></i>
+            <h1 class="text-xl font-bold">Edit Task</h1>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
+          </button>
         </div>
-        <div class="form-control">
-          <label for="name">Name</label>
-          <input type="text" name="name" class="task-edit-name" />
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-grow container max-w-2xl mx-auto px-4 py-8">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <form class="single-task-form space-y-6">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-1">Edit Task</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Update your task details below</p>
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Task ID</label>
+              <p class="task-edit-id text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 p-2 rounded"></p>
+            </div>
+            
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Task Name</label>
+              <input 
+                type="text" 
+                name="name" 
+                class="task-edit-name w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                placeholder="Enter task name"
+                required
+              />
+            </div>
+            
+            <div class="flex items-center space-x-3 pt-2">
+              <input 
+                type="checkbox" 
+                name="completed" 
+                id="completed"
+                class="task-edit-completed h-5 w-5 text-primary-500 rounded border-gray-300 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700"
+              />
+              <label for="completed" class="text-sm font-medium text-gray-700 dark:text-gray-300">Mark as completed</label>
+            </div>
+            
+            <div class="pt-2">
+              <button 
+                type="submit" 
+                class="w-full px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              >
+                <i class="fas fa-save mr-2"></i>Save Changes
+              </button>
+            </div>
+            
+            <div class="form-alert text-sm px-4 py-2 rounded hidden"></div>
+          </form>
         </div>
-        <div class="form-control">
-          <label for="completed">completed</label>
-          <input type="checkbox" name="completed" class="task-edit-completed" />
-        </div>
-        <button type="submit" class="block btn task-edit-btn">edit</button>
-        <div class="form-alert"></div>
-      </form>
-      <a href="index.html" class="btn back-link">back to tasks</a>
+      </main>
     </div>
-    <!-- axios -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+
+    <!-- Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <!-- js -->
+      referrerpolicy="no-referrer">
+    </script>
     <script src="./edit-task.js"></script>
+    <script>
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+      
+      // Check for saved user preference
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
+      
+      // Toggle theme on button click
+      themeToggle.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+      });
+    </script>
   </body>
 </html>
