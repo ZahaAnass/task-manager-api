@@ -8,8 +8,7 @@
     "dev": "nodemon app.js",
     "build:css": "tailwindcss -i ./src/input.css -o ./public/main.css",
     "watch:css": "tailwindcss -i ./src/input.css -o ./public/main.css --watch",
-    "dev:all": "concurrently \"npm run dev\" \"npm run watch:css\"",
-    "test": "jest --watch --verbose"
+    "dev:all": "concurrently \"npm run dev\" \"npm run watch:css\""
   },
   "keywords": [
     "task",
