@@ -1,80 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./normalize.css" />
-    <link rel="stylesheet" href="./main.css" />
-    <title>Task Manager </title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                500: '#3b82f6',
+                600: '#2563eb',
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <title>Task Manager</title>
+    <style>
+      body {
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .task-completed h5 {
+        text-decoration: line-through;
+        opacity: 0.7;
+      }
+    </style>
   </head>
-  <body>
-    <nav class="navbar">
-      <div class="nav-center">
-        <div class="nav-header">
-          <h3 class="logo">TaskMaster</h3>
-          <button class="theme-toggle">
-            <i class="fas fa-moon"></i>
+  <body class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-white dark:bg-gray-800 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+          <h1 class="text-xl font-bold text-primary-600 dark:text-primary-400">Task Manager</h1>
+          <button id="theme-toggle" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <i class="fas fa-moon dark:hidden"></i>
+            <i class="fas fa-sun hidden dark:block"></i>
           </button>
         </div>
-      </div>
-    </nav>
+      </header>
 
-    <main class="page">
-      <section class="task-manager">
-        <form class="task-form">
-          <h4>Add New Task</h4>
-          <div class="form-control">
+      <!-- Main Content -->
+      <main class="flex-grow container max-w-4xl mx-auto px-4 py-8">
+        <!-- Add Task Form -->
+        <form class="task-form bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+          <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Add New Task</h2>
+          <div class="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
               name="name"
-              class="task-input"
-              placeholder="e.g. Complete project presentation"
+              class="task-input flex-grow px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              placeholder="e.g. wash dishes"
               required
             />
-            <button type="submit" class="btn submit-btn">
-              <i class="fas fa-plus"></i> Add Task
+            <button 
+              type="submit" 
+              class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+            >
+              Add Task
             </button>
           </div>
-          <div class="form-alert"></div>
+          <div class="form-alert mt-2 text-sm"></div>
         </form>
 
-        <div class="tasks-container">
-          <div class="tasks-header">
-            <h4>Your Tasks</h4>
-            <div class="task-filters">
-              <button class="filter-btn active" data-filter="all">All</button>
-              <button class="filter-btn" data-filter="active">Active</button>
-              <button class="filter-btn" data-filter="completed">Completed</button>
-            </div>
+        <!-- Tasks Container -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div id="tasks" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <p class="loading-text p-8 text-center text-gray-500">
+              <i class="fas fa-spinner fa-spin mr-2"></i>Loading tasks...
+            </p>
           </div>
           
-          <div class="tasks">
-            <p class="loading-text">Loading tasks...</p>
-            <p class="no-tasks">No tasks to display. Add a task to get started!</p>
-          </div>
-          
-          <div class="tasks-footer">
-            <span class="task-count">0 items left</span>
-            <button class="clear-completed">Clear Completed</button>
+          <!-- Empty State -->
+          <div id="no-tasks" class="p-8 text-center text-gray-500 hidden">
+            <i class="fas fa-tasks text-4xl mb-3 text-gray-300 dark:text-gray-600"></i>
+            <p>No tasks to display. Add a task to get started!</p>
           </div>
         </div>
-      </section>
-    </main>
+      </main>
+    </div>
 
-    <div class="toast"></div>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    <!-- Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+      referrerpolicy="no-referrer">
+    </script>
     <script src="./browser-app.js"></script>
+    <script>
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+      
+      // Check for saved user preference
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
+      
+      // Toggle theme on button click
+      themeToggle.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+      });
+    </script>
   </body>
 </html>
