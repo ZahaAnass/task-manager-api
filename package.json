@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build:css": "tailwindcss -i ./src/input.css -o ./public/main.css",
-    "watch:css": "tailwindcss -i ./src/input.css -o ./public/main.css --watch",
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./public/main.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o ./public/main.css --watch",
     "dev:all": "concurrently \"npm run dev\" \"npm run watch:css\""
   },
   "keywords": [
