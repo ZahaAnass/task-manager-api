@@ -41,9 +41,7 @@ A full-stack task management application built with Node.js, Express, MongoDB, a
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/task-manager-api.git
-   # or
-   git clone git@github.com:ZahaAnass/task-manager-api.git
+   git clone https://github.com/ZahaAnass/task-manager-api.git
    cd task-manager-api
    ```
 
